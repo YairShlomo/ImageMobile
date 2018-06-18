@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">ImageMobile</string>
+    <string name="start">הפעל service</string>
+    <string name="stop">הפסק service</string>
 </resources>
