@@ -54,7 +54,7 @@ public class ImageService extends Service {
                 if (networkInfo != null) {
                     if (networkInfo.getType() == ConnectivityManager.TYPE_WIFI) {
                         if (networkInfo.getState() == NetworkInfo.State.CONNECTED) {
-                            //startTransferImages();
+                            startTransfer();
                         }
                     }
                 }
@@ -72,6 +72,74 @@ public class ImageService extends Service {
     }
 
 
+    private void startTransfer() {
+        try {
+            //here you must put your computer's IP address.
+            InetAddress serverAddr = InetAddress.getByName("10.0.0.2");
+            //create a socket to make the connection with the server
+            Socket socket = new Socket(serverAddr, 6145);
 
+            try {
+                //sends the message to the server
+                OutputStream output = socket.getOutputStream();
+                sendImages(output);
+                output.close();
+            } catch (Exception e) {
+            } finally {
+                socket.close();
+            }
+        } catch (Exception e) {
+
+        }
+    }
+
+    private void sendImages(OutputStream output) throws Exception {
+        File dcim = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
+        if (dcim == null) {
+            return;
+        }
+
+        final NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
+        final NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        final int notify_id = 1;
+        final File[] pics = dcim.listFiles();
+        final int len = pics.length;
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (count < len) {
+                    builder.setProgress(len, count, false);
+                    builder.setContentText("Transfer in progress\n" + count + "/" + len + "Transferred");
+                    notificationManager.notify(notify_id, builder.build());
+                }
+                builder.setProgress(len, count, false);
+                builder.setContentText("Transfer completed");
+                notificationManager.notify(notify_id, builder.build());
+            }
+        }).start();
+
+        if (pics != null) {
+            for (File pic : pics) {
+                try {
+
+                    count++;
+                    FileInputStream fis = new FileInputStream(pic);
+                    Bitmap bm = BitmapFactory.decodeStream(fis);
+                    byte[] imgbyte = getBytesFromBitmap(bm);
+                    output.write(imgbyte);
+                    output.flush();
+                } catch (Exception e) {
+                }
+            }
+        }
+
+    }
+
+    private byte[] getBytesFromBitmap(Bitmap bitmap) {
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        return stream.toByteArray();
+    }
 
 }
