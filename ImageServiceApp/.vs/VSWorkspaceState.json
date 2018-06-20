@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\ImageServer.Infrastructure",
+    "\\ImageServer.Infrastructure\\Modal",
+    "\\ImageServer.Infrastructure\\Modal\\Event",
+    "\\ImageService",
+    "\\ImageService\\Commands",
+    "\\ImageService\\Communication",
+    "\\ImageService\\Controller",
+    "\\ImageService\\Controller\\Handlers",
+    "\\ImageService\\Modal"
+  ],
+  "SelectedNode": "\\ImageService\\Communication\\ClientHandler.cs",
+  "PreviewInSolutionExplorer": false
+}
