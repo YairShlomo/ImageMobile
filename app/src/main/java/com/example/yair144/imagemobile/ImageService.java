@@ -90,10 +90,10 @@ public class ImageService extends Service {
                             //sends the message to the server
                             OutputStream output = socket.getOutputStream();
                             sendImages(output);
-                            output.close();
+                           // output.close();
                         } catch (Exception e) {
                         } finally {
-                            socket.close();
+                          //  socket.close();
                         }
                     } catch (Exception e) {
 
@@ -140,6 +140,7 @@ public class ImageService extends Service {
                     count++;
                     SendPhoto(output, pic);
                 } catch (Exception e) {
+
                 }
             }
         }

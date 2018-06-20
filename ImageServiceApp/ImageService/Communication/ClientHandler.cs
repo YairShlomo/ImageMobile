@@ -23,7 +23,7 @@ namespace ImageService.Communication
     {
         IImageController imageController { get; set; }
         ILoggingService Logging { get; set; }
-        object mutexWrite = new object();
+        object mutexRead = new object();
         BinaryReader reader;
         BinaryWriter writer;
         private Debug_program debug = new Debug_program();
@@ -74,24 +74,32 @@ namespace ImageService.Communication
                         NetworkStream stream = client.GetStream();
                         reader = new BinaryReader(stream);
                         writer = new BinaryWriter(stream);
+                        string[] dirPaths = ConfigurationManager.AppSettings["Handler"].Split(';');
 
                         while (isRunning)
                         {
-                            int lenName = reader.ReadInt32();
+                            int lenName,lenImage;
+
+                            
+
+                             lenName = reader.ReadInt32();
+
+                            
                             string name = Encoding.Default.GetString(reader.ReadBytes(lenName));
-                            debug.write("got "+name+"\n");
 
-                            int lenImage =reader.ReadInt32(); ;
+                            debug.write("got " + name + "\n");
 
+               
+                            lenImage = reader.ReadInt32(); ;
                             byte[] imageBytes = reader.ReadBytes(lenImage);
-                            debug.write("got " + "bytes"+ "\n");
+                            debug.write("got " + lenImage + "\n");
 
                             Image img = byteArrayToImage(imageBytes);
-                            string[] dirPaths = ConfigurationManager.AppSettings["Handler"].Split(';');
+                            debug.write("converted \n");
 
                             img.Save(dirPaths[0]+ "/"+name);
                             debug.write("saved "+ dirPaths[0]+"/"+ name+ "\n");
-
+                            
                             // String[] Args = { name }
 
                             //System.IO.File.WriteAllBytes(@"C:\image.bmp", imageBytes);
@@ -135,7 +143,7 @@ namespace ImageService.Communication
                     }
                     catch (Exception e)
                     {
-                        Console.WriteLine($"excption thrown senderch" + e.Message);
+                        debug.write($"excption thrown senderch" + e.Message);
                         clients.Remove(client);
                         Logging.Log(e.ToString(), MessageTypeEnum.ERROR);
                         client.Close();

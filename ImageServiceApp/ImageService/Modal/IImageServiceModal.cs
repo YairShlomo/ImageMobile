@@ -14,12 +14,6 @@ namespace ImageService.Modal
         /// <param name="path">The Path of the Image from the file</param>
         /// <returns>Indication if the Addition Was Successful</returns>
         string AddFile(string path, out bool result);
-        /// <summary>
-        /// Deletes the file.
-        /// </summary>
-        /// <param name="path">The path.</param>
-        /// <param name="result">if set to <c>true</c> [result].</param>
-        /// <returns></returns>
-        string DeleteFile(string path, out bool result);
+  
     }
 }

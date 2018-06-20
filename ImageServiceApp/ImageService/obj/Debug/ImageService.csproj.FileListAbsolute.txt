@@ -173,7 +173,6 @@ C:\Users\yair144\Documents\Visual Studio 2017\Projects\ImageServiceApp\ImageServ
 C:\Users\yair144\Documents\Visual Studio 2017\Projects\ImageServiceApp\ImageService\bin\Debug\Microsoft.VisualStudio.Utilities.xml
 C:\Users\yair144\Documents\Visual Studio 2017\Projects\ImageServiceApp\ImageService\bin\Debug\Microsoft.VisualStudio.Threading.xml
 C:\Users\yair144\Documents\Visual Studio 2017\Projects\ImageServiceApp\ImageService\bin\Debug\Microsoft.VisualStudio.Validation.xml
-C:\Users\yair144\Documents\Visual Studio 2017\Projects\ImageServiceApp\ImageService\obj\Debug\ImageService.csprojResolveAssemblyReference.cache
 C:\Users\yair144\Documents\Visual Studio 2017\Projects\ImageServiceApp\ImageService\obj\Debug\ImageService.exe.config
 C:\Users\yair144\Documents\Visual Studio 2017\Projects\ImageServiceApp\ImageService\obj\Debug\ImageService.ImageService.resources
 C:\Users\yair144\Documents\Visual Studio 2017\Projects\ImageServiceApp\ImageService\obj\Debug\ImageService.ProjectInstaller.resources
@@ -182,3 +181,4 @@ C:\Users\yair144\Documents\Visual Studio 2017\Projects\ImageServiceApp\ImageServ
 C:\Users\yair144\Documents\Visual Studio 2017\Projects\ImageServiceApp\ImageService\obj\Debug\ImageService.csproj.CopyComplete
 C:\Users\yair144\Documents\Visual Studio 2017\Projects\ImageServiceApp\ImageService\obj\Debug\ImageService.exe
 C:\Users\yair144\Documents\Visual Studio 2017\Projects\ImageServiceApp\ImageService\obj\Debug\ImageService.pdb
+C:\Users\yair144\Documents\Visual Studio 2017\Projects\ImageServiceApp\ImageService\obj\Debug\ImageService.csprojResolveAssemblyReference.cache

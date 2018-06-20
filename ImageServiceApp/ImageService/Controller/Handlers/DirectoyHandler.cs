@@ -103,6 +103,9 @@ namespace ImageService.Controller.Handlers
         {
            // debug.write("OnChanged");
             string argsFullPath = comArgs.FullPath;
+            Debug_program debug = new Debug_program();
+
+            debug.write(comArgs.FullPath);
             string[] args = { comArgs.FullPath };
             string fileExtension = Path.GetExtension(argsFullPath);
            // debug.write(fileExtension);
