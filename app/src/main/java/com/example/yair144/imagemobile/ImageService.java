@@ -21,9 +21,12 @@ import android.widget.Toast;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FilenameFilter;
 import java.io.OutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 
 public class ImageService extends Service {
 
@@ -73,27 +76,34 @@ public class ImageService extends Service {
 
 
     private void startTransfer() {
-        try {
-            //here you must put your computer's IP address.
-            InetAddress serverAddr = InetAddress.getByName("10.0.0.2");
-            //create a socket to make the connection with the server
-            Socket socket = new Socket(serverAddr, 6145);
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
 
-            try {
-                //sends the message to the server
-                OutputStream output = socket.getOutputStream();
-                sendImages(output);
-                output.close();
-            } catch (Exception e) {
-            } finally {
-                socket.close();
-            }
-        } catch (Exception e) {
+                        //here you must put your computer's IP address.
+                        InetAddress serverAddr = InetAddress.getByName("10.0.2.2");
 
+                        //create a socket to make the connection with the server
+                        Socket socket = new Socket(serverAddr, 8000);
+                        try {
+                            //sends the message to the server
+                            OutputStream output = socket.getOutputStream();
+                            sendImages(output);
+                            output.close();
+                        } catch (Exception e) {
+                        } finally {
+                            socket.close();
+                        }
+                    } catch (Exception e) {
+
+                    }
+
+
+                }
+            }).start();
         }
-    }
-
-    private void sendImages(OutputStream output) throws Exception {
+    private  void sendImages(OutputStream output) throws Exception {
         File dcim = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
         if (dcim == null) {
             return;
@@ -102,7 +112,12 @@ public class ImageService extends Service {
         final NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
         final NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         final int notify_id = 1;
-        final File[] pics = dcim.listFiles();
+        final File[] pics = dcim.listFiles(new FilenameFilter() {
+            public boolean accept(File dir, String name) {
+                return (name.endsWith(".jpg") || name.endsWith(".jpeg") || name.endsWith(".png") ||
+                        name.endsWith(".bmp") || name.endsWith(".gif"));
+            }
+        });
         final int len = pics.length;
 
         new Thread(new Runnable() {
@@ -122,13 +137,8 @@ public class ImageService extends Service {
         if (pics != null) {
             for (File pic : pics) {
                 try {
-
                     count++;
-                    FileInputStream fis = new FileInputStream(pic);
-                    Bitmap bm = BitmapFactory.decodeStream(fis);
-                    byte[] imgbyte = getBytesFromBitmap(bm);
-                    output.write(imgbyte);
-                    output.flush();
+                    SendPhoto(output, pic);
                 } catch (Exception e) {
                 }
             }
@@ -140,6 +150,21 @@ public class ImageService extends Service {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
         return stream.toByteArray();
+    }
+    private void SendPhoto(OutputStream output, File pic) throws Exception{
+        FileInputStream fis = new FileInputStream(pic);
+        Bitmap bm = BitmapFactory.decodeStream(fis);
+        byte[] imgbyte = getBytesFromBitmap(bm);
+        String name = pic.getName();
+
+        output.write(ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN).putInt(name.length()).array());
+        output.flush();
+        output.write(name.getBytes());
+        output.flush();
+        output.write(ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN).putInt(imgbyte.length).array());
+        output.flush();
+        output.write(imgbyte);
+        output.flush();
     }
 
 }

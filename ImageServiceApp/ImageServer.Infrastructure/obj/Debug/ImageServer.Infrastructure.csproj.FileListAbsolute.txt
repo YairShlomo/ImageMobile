@@ -1,0 +1,3 @@
+C:\Users\yair144\Documents\Visual Studio 2017\Projects\ImageService\ImageService\ImageServer.Infrastructure\obj\Debug\ImageServer.Infrastructure.Properties.Resources.resources
+C:\Users\yair144\Documents\Visual Studio 2017\Projects\ImageService\ImageService\ImageServer.Infrastructure\obj\Debug\ImageServer.Infrastructure.csproj.GenerateResource.cache
+C:\Users\yair144\Documents\Visual Studio 2017\Projects\ImageService\ImageService\ImageServer.Infrastructure\obj\Debug\ImageServer.Infrastructure.csproj.CoreCompileInputs.cache

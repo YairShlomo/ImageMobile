@@ -1,0 +1,4 @@
+C:\Users\yair144\Documents\Visual Studio 2017\Projects\ImageService\ImageService\ImageServer.Communication\obj\Debug\ImageServer.Communication.csprojResolveAssemblyReference.cache
+C:\Users\yair144\Documents\Visual Studio 2017\Projects\ImageService\ImageService\ImageServer.Communication\obj\Debug\ImageServer.Communication.Properties.Resources.resources
+C:\Users\yair144\Documents\Visual Studio 2017\Projects\ImageService\ImageService\ImageServer.Communication\obj\Debug\ImageServer.Communication.csproj.GenerateResource.cache
+C:\Users\yair144\Documents\Visual Studio 2017\Projects\ImageService\ImageService\ImageServer.Communication\obj\Debug\ImageServer.Communication.csproj.CoreCompileInputs.cache
